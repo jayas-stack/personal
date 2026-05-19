@@ -2,6 +2,7 @@ import styles from './Navigation.module.css'
 
 const LINKS = [
   { target: 'home',    icon: '🏠', label: 'Home'    },
+  { target: 'gallery', icon: '📸', label: 'Gallery' },
   { target: 'letter',  icon: '💌', label: 'Letter'  },
 ]
 

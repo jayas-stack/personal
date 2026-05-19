@@ -67,10 +67,10 @@ export default function Home() {
 
         <motion.div className={styles.btnRow} initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.15, duration:0.7 }}>
           <a
-            href="#letter"
+            href="#gallery"
             onClick={(e) => {
               e.preventDefault()
-              document.getElementById('letter')?.scrollIntoView({ behavior: 'smooth' })
+              document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })
             }}
             className={styles.btnPrimary}
           >

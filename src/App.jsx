@@ -1,6 +1,7 @@
 import Aurora from './components/Aurora'
 import Particles from './components/Particles'
 import Home from './pages/Home'
+import Gallery from './pages/Gallery'
 import Letter from './pages/Letter'
 
 export default function App() {
@@ -11,6 +12,9 @@ export default function App() {
       
       <div id="home">
         <Home />
+      </div>
+      <div id="gallery">
+        <Gallery />
       </div>
       <div id="letter">
         <Letter />
