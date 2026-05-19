@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@600;700&family=Poppins:wght@200;300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #080414;
+  --pink:      #d4a5b8;
+  --pink-l:    #f5e6eb;
+  --pink-d:    #a36881;
+  --gold:      #c59b6d;
+  --gold-l:    #f0d8bd;
+  --gold-d:    #946e45;
+  --purple:    #6b528c;
+  --rose:      #c77d98;
+  --glass:     rgba(255,255,255,0.03);
+  --glass-hov: rgba(255,255,255,0.07);
+  --border:    rgba(255,255,255,0.06);
+  --b-gold:    rgba(197,155,109,0.35);
+  --b-pink:    rgba(212,165,184,0.25);
+  --text:      #faf5f7;
+  --muted:     #a68c9c;
+  --ff-h:     'Cormorant Garamond', serif;
+  --ff-s:     'Dancing Script', cursive;
+  --ff-b:     'Poppins', sans-serif;
+  --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; height: 100%; }
+
+body {
+  font-family: var(--ff-b);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--pink-d), var(--gold-d)); border-radius: 10px; }
+
+/* Page padding for nav */
+.page { padding-bottom: 6rem; min-height: 100vh; position: relative; z-index: 1; }
+
+/* Section */
+.section { padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+
+/* Tag */
+.tag {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-l);
+  background: rgba(212,165,116,0.1);
+  border: 1px solid rgba(212,165,116,0.3);
+  padding: 0.32rem 1.1rem; border-radius: 50px;
+  margin-bottom: 0.9rem;
+}
+
+/* Section title */
+.sec-title {
+  font-family: var(--ff-h);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  background: linear-gradient(135deg, #fff 20%, var(--pink-l) 60%, var(--gold-l) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1.2;
+}
+
+/* Glass card */
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: all 0.4s var(--ease);
+}
+.card:hover { border-color: var(--b-gold); box-shadow: 0 20px 60px rgba(212,165,116,0.18); }
+
+/* Bears stage */
+.bears-stage {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 130px; z-index: 8; pointer-events: none; overflow: hidden;
+}
+.bear svg { animation: bearBob 0.45s ease-in-out infinite alternate; }
+@keyframes bearBob {
+  0%   { transform: translateY(0) rotate(-1.5deg); }
+  100% { transform: translateY(-6px) rotate(1.5deg); }
+}
+
+/* Heart float keyframe */
+@keyframes bhf {
+  0%,100% { opacity: 0; transform: translateY(0) scale(0.6); }
+  30%     { opacity: 1; }
+  80%     { opacity: 0; transform: translateY(-45px) scale(1); }
+}
+
+/* Canvas */
+#particleCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* Responsive helpers */
+@media (max-width: 640px) {
+  .section { padding: 3.5rem 1rem; }
+}

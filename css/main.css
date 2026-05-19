@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@600;700&family=Poppins:wght@200;300;400;500;600&display=swap');
+
+:root {
+  --bg: #06030f;
+  --pink: #ff6b9d;
+  --pink-l: #ffaec9;
+  --gold: #d4a574;
+  --gold-l: #f0c896;
+  --purple: #9055d4;
+  --rose: #ff4d6d;
+  --glass: rgba(255,255,255,0.05);
+  --glass-b: rgba(255,255,255,0.10);
+  --border: rgba(255,255,255,0.10);
+  --border-gold: rgba(212,165,116,0.35);
+  --border-pink: rgba(255,107,157,0.30);
+  --text: #fce8f0;
+  --text-muted: #9a7090;
+  --ff-h: 'Cormorant Garamond', serif;
+  --ff-s: 'Dancing Script', cursive;
+  --ff-b: 'Poppins', sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --t: all 0.4s var(--ease);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-b);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── AURORA BG ── */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ab{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.3;animation:am 14s ease-in-out infinite}
+.ab:nth-child(1){width:650px;height:650px;background:radial-gradient(#ff6b9d,#7b0033);top:-200px;left:-180px;animation-delay:0s}
+.ab:nth-child(2){width:500px;height:500px;background:radial-gradient(#9055d4,#2a0055);bottom:-180px;right:-120px;animation-delay:4s}
+.ab:nth-child(3){width:420px;height:420px;background:radial-gradient(#d4a574,#6b3a10);top:35%;left:38%;animation-delay:8s}
+.ab:nth-child(4){width:380px;height:380px;background:radial-gradient(#ff9ecd,#c2185b);top:55%;right:15%;animation-delay:2s}
+@keyframes am{0%,100%{transform:translate(0,0) scale(1);opacity:.3}40%{transform:translate(35px,-25px) scale(1.1);opacity:.4}70%{transform:translate(-25px,35px) scale(.95);opacity:.25}}
+
+/* ── NAV ── */
+.premium-nav{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;gap:.25rem;background:rgba(6,3,15,.8);backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.12);border-radius:60px;padding:.55rem .9rem;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:.45rem .8rem;border-radius:40px;text-decoration:none;color:var(--text-muted);font-size:.6rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:var(--t)}
+.nav-icon{font-size:1.15rem;display:block;transition:transform .3s var(--ease)}
+.nav-item:hover{color:var(--gold-l)}
+.nav-item:hover .nav-icon{transform:scale(1.25) translateY(-2px)}
+.nav-item.active{background:linear-gradient(135deg,rgba(212,165,116,.18),rgba(255,107,157,.18));color:var(--gold-l);border:1px solid rgba(212,165,116,.3)}
+
+/* ── GLASS CARD ── */
+.glass-card{background:var(--glass);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:24px;transition:var(--t)}
+.glass-card:hover{border-color:var(--border-gold);transform:translateY(-5px);box-shadow:0 20px 60px rgba(212,165,116,.2)}
+
+/* ── TAG ── */
+.tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-l);background:rgba(212,165,116,.1);border:1px solid rgba(212,165,116,.3);padding:.35rem 1.2rem;border-radius:50px;margin-bottom:1rem}
+
+/* ── SECTION TITLE ── */
+.section-title{font-family:var(--ff-h);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:600;background:linear-gradient(135deg,#fff 20%,var(--pink-l) 60%,var(--gold-l) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── PAGE FADE ── */
+.page-wrapper{position:relative;z-index:1;min-height:100vh;animation:pageFade .7s var(--ease) both}
+@keyframes pageFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--pink),var(--gold));border-radius:10px}
+
+/* ── CANVAS ── */
+#particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── BEARS STAGE ── */
+.bears-stage{position:fixed;bottom:0;left:0;right:0;height:130px;z-index:8;pointer-events:none;overflow:hidden}
+.bear{position:absolute;bottom:0;cursor:default}
+.bear svg{animation:bearBob .45s ease-in-out infinite alternate}
+@keyframes bearBob{0%{transform:translateY(0) rotate(-1.5deg)}100%{transform:translateY(-6px) rotate(1.5deg)}}
+.bear::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:55px;height:7px;background:rgba(0,0,0,.3);border-radius:50%;filter:blur(4px)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){.premium-nav{bottom:.8rem;padding:.4rem .5rem}.nav-item{padding:.4rem .55rem;font-size:.5rem}.nav-icon{font-size:.95rem}}

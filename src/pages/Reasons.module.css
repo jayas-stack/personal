@@ -1,0 +1,45 @@
+.page { }
+.header { text-align: center; margin-bottom: 2.5rem; }
+.sub { color: #d4a0b5; font-size: 1rem; margin-top: 0.6rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+/* Flip Card */
+.flipOuter {
+  height: 220px; perspective: 1000px; cursor: pointer;
+}
+.flipInner {
+  width: 100%; height: 100%;
+  position: relative; transform-style: preserve-3d;
+}
+.face {
+  position: absolute; inset: 0;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.5rem; text-align: center;
+}
+.front { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10); }
+.back  { background: linear-gradient(135deg, rgba(194,24,91,0.18), rgba(144,85,212,0.18)); border: 1px solid rgba(212,165,116,0.3); transform: rotateY(180deg); }
+.fIcon { font-size: 2.8rem; margin-bottom: 0.8rem; animation: iconBob 3s ease-in-out infinite; }
+@keyframes iconBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.fTitle { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: #f0c896; margin-bottom: 0.4rem; }
+.fHint { font-size: 0.7rem; color: #9a7090; letter-spacing: 0.08em; }
+.bIcon { font-size: 2rem; margin-bottom: 0.7rem; }
+.bText { font-size: 0.88rem; line-height: 1.75; color: #f0d0dc; }
+
+/* Stars */
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.star {
+  position: absolute; top: -50px; opacity: 0;
+  animation: starFall linear infinite;
+}
+@keyframes starFall { 0%{transform:translateY(0);opacity:0} 10%{opacity:.8} 90%{opacity:.6} 100%{transform:translateY(110vh);opacity:0} }
+
+@media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .grid { grid-template-columns: 1fr; } .flipOuter { height: 180px; } }

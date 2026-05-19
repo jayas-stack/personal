@@ -1,0 +1,62 @@
+.page { }
+.header { text-align: center; margin-bottom: 2.5rem; }
+
+/* Fireworks */
+.fwLayer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.fw { position: absolute; }
+.fwPiece {
+  position: absolute; font-size: 1.2rem;
+  transform-origin: 0 0;
+  transform: rotate(var(--r)) translateX(40px);
+}
+
+/* Wish cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+.card { padding: 2rem 1.8rem; position: relative; overflow: hidden; }
+.card:hover { transform: translateY(-6px); }
+.num {
+  position: absolute; top: 0.8rem; right: 1.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem; font-weight: 700;
+  color: rgba(194,24,91,0.14); line-height: 1;
+}
+.icon { font-size: 2.4rem; margin-bottom: 0.9rem; }
+.title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #f0c896; margin-bottom: 0.6rem; }
+.body { font-size: 0.92rem; line-height: 1.78; color: #d4a0b5; }
+
+/* Cake */
+.cakeSection { text-align: center; margin-top: 3.5rem; }
+.cakeTitle { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #f0c896; margin-bottom: 1.5rem; }
+.cakeWrap {
+  display: inline-flex; flex-direction: column; align-items: center;
+  cursor: pointer; transition: transform 0.3s ease;
+}
+.cakeWrap:hover { transform: scale(1.06); }
+
+.candles { display: flex; gap: 14px; margin-bottom: -4px; z-index: 2; }
+.candle { width: 10px; height: 30px; background: linear-gradient(#f8a5c2, #e91e8c); border-radius: 5px 5px 2px 2px; position: relative; box-shadow: 0 0 8px rgba(233,30,140,0.5); }
+.flame {
+  position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+  width: 10px; height: 18px;
+  background: radial-gradient(ellipse at center bottom, #fff 10%, #ffd740 40%, #ff6f00 80%, transparent 100%);
+  border-radius: 50% 50% 30% 30%;
+  animation: flicker 0.8s ease-in-out infinite alternate;
+  filter: blur(0.5px); transition: opacity 0.4s, transform 0.4s;
+}
+.flame.out { opacity: 0; transform: translateX(-50%) scale(0); }
+@keyframes flicker { 0%{transform:translateX(-50%) scaleY(1) skewX(0deg);opacity:1} 100%{transform:translateX(-50%) scaleY(.85) skewX(8deg);opacity:.85} }
+
+.cakeTop  { width: 120px; height: 30px; background: linear-gradient(to right, #e91e8c, #f06292, #e91e8c); border-radius: 8px 8px 0 0; }
+.cakeMid  { width: 130px; height: 42px; background: linear-gradient(to right, #ad1457, #c2185b, #ad1457); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; letter-spacing: 2px; }
+.cakeBot  { width: 140px; height: 40px; background: linear-gradient(to right, #880e4f, #ad1457, #880e4f); border-radius: 0 0 4px 4px; }
+.plate    { width: 160px; height: 12px; background: linear-gradient(to right, #b8860b, #f9a825, #b8860b); border-radius: 50%; margin-top: 4px; box-shadow: 0 4px 14px rgba(249,168,37,0.5); }
+.hint { margin-top: 1rem; font-size: 0.88rem; color: #9a7090; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:.6} 50%{opacity:1} }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}
