@@ -10,7 +10,7 @@ const PHOTOS = [
   { src: '/photo_placeholder.png' },
 ]
 
-export default function Home() {
+export default function Home({ openGift }) {
   const [index, setIndex] = useState(0)
 
   // Auto-play slideshow background
@@ -70,7 +70,7 @@ export default function Home() {
             href="#gallery"
             onClick={(e) => {
               e.preventDefault()
-              document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })
+              openGift()
             }}
             className={styles.btnPrimary}
           >

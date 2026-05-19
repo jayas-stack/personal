@@ -12,8 +12,7 @@ const IMAGES = [
   { id: 6, src: '/photos/photo6.jpg', fallback: '/photo_placeholder.png', caption: 'Always and forever, my love 🥂' },
 ]
 
-export default function Gallery() {
-  const [activeIdx, setActiveIdx] = useState(null)
+export default function Gallery({ activeIdx, setActiveIdx }) {
   const [imageErrors, setImageErrors] = useState({})
 
   // Handle image loading error to fallback gracefully
