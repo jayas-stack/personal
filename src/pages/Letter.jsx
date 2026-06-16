@@ -38,7 +38,7 @@ export default function Letter() {
   const [isOpened, setIsOpened] = useState(false)
 
   return (
-    <motion.div className={`page ${styles.page}`} initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:0.6 }}>
+    <motion.div className={`page ${styles.page}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
 
 
       <div className="section" style={{ maxWidth: 820 }}>
@@ -65,9 +65,8 @@ export default function Letter() {
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => setIsOpened(true)}
               >
-                <h2 className={styles.envelopeTitle}>For My Favorite Person</h2>
-                <p className={styles.envelopeSubtitle}>Click the wax seal to open this letter</p>
-                
+                <h2 className={styles.envelopeTitle}>Kaali Unnapudu Open Chey</h2>
+
                 <motion.button
                   className={styles.waxSealButton}
                   whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
