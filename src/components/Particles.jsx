@@ -7,7 +7,7 @@ export default function Particles() {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
     let anim
-    let particles = []
+    let stars = []
 
     const resize = () => {
       canvas.width = window.innerWidth
@@ -16,45 +16,161 @@ export default function Particles() {
     resize()
     window.addEventListener('resize', resize)
 
-    const COLORS = ['#ffffff', '#f0d8bd', '#c59b6d', '#e1c6cd', '#faf5f7']
+    // Realistic NASA galaxy colors: pure white, bluish-white, faint blue, faint red dwarf, faint orange
+    const COLORS = ['#ffffff', '#ffffff', '#e0f0ff', '#a3d1ff', '#ffcccc', '#ffd2a6']
 
-    class P {
-      constructor() { this.reset(true) }
+
+    class Star {
+      constructor() {
+        this.reset(true)
+      }
       reset(init = false) {
         this.x = Math.random() * canvas.width
-        this.y = init ? Math.random() * canvas.height : canvas.height + 10
-        this.r = 0.8 + Math.random() * 2.2
-        this.vy = -(0.2 + Math.random() * 0.5)
-        this.vx = (Math.random() - 0.5) * 0.3
-        this.op = 0.4 + Math.random() * 0.6
-        this.fade = 0.002 + Math.random() * 0.005
+        this.y = Math.random() * canvas.height
+        // z represents depth (0 to canvas.width)
+        this.z = init ? Math.random() * canvas.width : canvas.width
+        // Size inversely proportional to depth, smaller realistic stars
+        this.baseRadius = 0.2 + Math.random() * 1.0
         this.color = COLORS[Math.floor(Math.random() * COLORS.length)]
       }
       update() {
-        this.x += this.vx; this.y += this.vy; this.op -= this.fade
-        if (this.op <= 0 || this.y < -10) this.reset()
+        // Slow, grand majestic movement for realistic space scale
+        this.z -= 0.15
+        if (this.z <= 0) {
+          this.reset()
+        }
       }
       draw() {
+        // Calculate 3D to 2D projection
+        const cx = canvas.width / 2
+        const cy = canvas.height / 2
+        // Factor controls field of view
+        const factor = canvas.width / this.z
+        
+        const px = (this.x - cx) * factor + cx
+        const py = (this.y - cy) * factor + cy
+        const r = this.baseRadius * factor
+
+        // Don't draw if outside screen
+        if (px < 0 || px > canvas.width || py < 0 || py > canvas.height) return
+
+        // Calculate opacity based on depth (fade in from distance)
+        const opacity = Math.min(1, (canvas.width - this.z) / (canvas.width / 2))
+
         ctx.save()
-        ctx.globalAlpha = this.op
+        ctx.globalAlpha = opacity
         ctx.fillStyle = this.color
-        ctx.shadowColor = this.color; ctx.shadowBlur = 6
-        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill()
+        
+        // Add subtle glow to closer stars
+        if (this.z < canvas.width / 3) {
+          ctx.shadowColor = this.color
+          ctx.shadowBlur = 8
+        }
+        
+        ctx.beginPath()
+        ctx.arc(px, py, r, 0, Math.PI * 2)
+        ctx.fill()
         ctx.restore()
       }
     }
 
-    for (let i = 0; i < 70; i++) particles.push(new P())
+    class Comet {
+      constructor() {
+        this.reset()
+      }
+      reset() {
+        this.x = Math.random() * canvas.width * 1.5
+        this.y = -Math.random() * canvas.height
+        this.length = 80 + Math.random() * 100
+        this.vx = -(6 + Math.random() * 4) // Move left
+        this.vy = 6 + Math.random() * 4    // Move down
+        this.opacity = 0
+        this.fade = 0.01 + Math.random() * 0.02
+        this.active = false
+        // Random delay before activating to space them out
+        setTimeout(() => { this.active = true }, Math.random() * 6000 + 1000)
+      }
+      update() {
+        if (!this.active) return
+        this.x += this.vx
+        this.y += this.vy
+        
+        // Fade in and out
+        if (this.opacity < 1 && this.y < canvas.height / 2) {
+          this.opacity += this.fade
+        } else if (this.y > canvas.height / 2) {
+          this.opacity -= this.fade
+        }
+        
+        // Reset when out of bounds or faded out
+        if (this.x < -this.length || this.y > canvas.height + this.length || this.opacity <= 0) {
+          this.reset()
+        }
+      }
+      draw() {
+        if (!this.active || this.opacity <= 0) return
+        ctx.save()
+        ctx.globalAlpha = Math.max(0, this.opacity)
+        
+        // Comet tail (gradient line)
+        const grad = ctx.createLinearGradient(this.x, this.y, this.x - this.vx * 15, this.y - this.vy * 15)
+        grad.addColorStop(0, 'rgba(255, 255, 255, 0.8)')
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0)')
+        
+        ctx.beginPath()
+        ctx.moveTo(this.x, this.y)
+        ctx.lineTo(this.x - this.vx * 15, this.y - this.vy * 15)
+        ctx.strokeStyle = grad
+        ctx.lineWidth = 1.5
+        ctx.stroke()
+        
+        // Bright comet head
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = '#ffffff'
+        ctx.shadowBlur = 12
+        ctx.shadowColor = '#ffffff'
+        ctx.fill()
+        
+        ctx.restore()
+      }
+    }
+
+    // Create 1000 stars for a majestic, dense realistic galaxy
+    for (let i = 0; i < 1000; i++) {
+      stars.push(new Star())
+    }
+
+    // Add 3 comets/shooting stars that occasionally streak across
+    let comets = []
+    for (let i = 0; i < 3; i++) {
+      comets.push(new Comet())
+    }
 
     const loop = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      particles.forEach(p => { p.update(); p.draw() })
+      // Create slight trailing effect for premium look with pure space black
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      
+      stars.forEach(s => {
+        s.update()
+        s.draw()
+      })
+
+      comets.forEach(c => {
+        c.update()
+        c.draw()
+      })
+
       anim = requestAnimationFrame(loop)
     }
     loop()
 
-    return () => { cancelAnimationFrame(anim); window.removeEventListener('resize', resize) }
+    return () => {
+      cancelAnimationFrame(anim)
+      window.removeEventListener('resize', resize)
+    }
   }, [])
 
-  return <canvas id="particleCanvas" ref={canvasRef} />
+  return <canvas id="particleCanvas" ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} />
 }

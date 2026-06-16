@@ -4,17 +4,17 @@
 }
 .blob {
   position: absolute; border-radius: 50%;
-  filter: blur(90px); opacity: 0.32;
-  animation: am 14s ease-in-out infinite;
+  filter: blur(160px); opacity: 0.45;
+  animation: am 25s ease-in-out infinite;
 }
-.blob[data-n="1"] { width: 600px; height: 600px; background: radial-gradient(rgba(199, 125, 152, 0.25), rgba(8, 4, 20, 0)); top: -200px; left: -180px; animation-delay: 0s; }
-.blob[data-n="2"] { width: 500px; height: 500px; background: radial-gradient(rgba(107, 82, 140, 0.22), rgba(8, 4, 20, 0)); bottom: -180px; right: -120px; animation-delay: 4s; }
-.blob[data-n="3"] { width: 400px; height: 400px; background: radial-gradient(rgba(197, 155, 109, 0.20), rgba(8, 4, 20, 0)); top: 35%; left: 38%; animation-delay: 8s; }
-.blob[data-n="4"] { width: 360px; height: 360px; background: radial-gradient(rgba(163, 104, 129, 0.25), rgba(8, 4, 20, 0)); top: 55%; right: 15%; animation-delay: 2s; }
+.blob[data-n="1"] { width: 800px; height: 800px; background: radial-gradient(rgba(15, 45, 95, 0.6), rgba(0, 0, 0, 0)); top: -200px; left: -200px; animation-delay: 0s; }
+.blob[data-n="2"] { width: 700px; height: 700px; background: radial-gradient(rgba(45, 15, 65, 0.5), rgba(0, 0, 0, 0)); bottom: -200px; right: -150px; animation-delay: 5s; }
+.blob[data-n="3"] { width: 600px; height: 600px; background: radial-gradient(rgba(65, 25, 15, 0.4), rgba(0, 0, 0, 0)); top: 30%; left: 40%; animation-delay: 10s; }
+.blob[data-n="4"] { width: 550px; height: 550px; background: radial-gradient(rgba(15, 60, 70, 0.45), rgba(0, 0, 0, 0)); top: 50%; right: 10%; animation-delay: 3s; }
 @keyframes am {
-  0%,100% { transform: translate(0,0) scale(1); opacity: .32; }
-  40%     { transform: translate(35px,-25px) scale(1.1); opacity: .42; }
-  70%     { transform: translate(-25px,35px) scale(.95); opacity: .24; }
+  0%,100% { transform: translate(0,0) scale(1); opacity: .45; }
+  40%     { transform: translate(45px,-35px) scale(1.15); opacity: .6; }
+  70%     { transform: translate(-35px,45px) scale(.9); opacity: .35; }
 }
 @media (max-width: 640px) {
   .blob[data-n="1"] { width: 320px; height: 320px; }
