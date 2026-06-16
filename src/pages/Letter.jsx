@@ -78,7 +78,7 @@ export default function Letter() {
                   }}
                   aria-label="Open Letter"
                 >
-                  💕
+                  💗
                 </motion.button>
               </motion.div>
             ) : (
@@ -94,7 +94,7 @@ export default function Letter() {
 
 
                 {/* Seal */}
-                <div className={styles.seal}>💕</div>
+                <div className={styles.seal}>💗</div>
 
                 <div className={styles.inner}>
                   {LETTER.map((para, i) => (
